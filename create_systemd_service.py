@@ -1,9 +1,11 @@
 import os
+import venv
 
 
 RUN_PATH = os.path.dirname(os.path.realpath(__file__))
 API_NAME = RUN_PATH.split('/')[-1]
-SERVICE_PATH = "/etc/systemd/system/"
+PY_ENV_PATH = f'{RUN_PATH}/env'
+SERVICE_PATH = "/etc/systemd/system"
 SERVICE_FILE = f"""[Unit]
 Description = {API_NAME.capitalize()} service
 After = network.target
@@ -12,10 +14,15 @@ After = network.target
 Type = simple
 Restart = always
 SyslogIdentifier = {API_NAME.capitalize()}
-ExecStart = /usr/bin/python3 {RUN_PATH}/run_api.py --prod
+ExecStart = {PY_ENV_PATH}/bin/python {RUN_PATH}/run_api.py --prod
 
 [Install]
 WantedBy = multi-user.target"""
+
+
+def build_python_env():
+    venv.create(PY_ENV_PATH, with_pip=True)
+    os.system(f'{PY_ENV_PATH}/bin/python -m pip install -r requirements.txt')
 
 
 def create_service_file():
@@ -30,5 +37,6 @@ def enable_service():
 
 
 if __name__ == '__main__':
+    build_python_env()
     create_service_file()
     enable_service()
