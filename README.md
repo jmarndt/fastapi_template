@@ -26,3 +26,6 @@ To see additional options run it with the help flag:
 ```
 python3 run_api.py -h
 ```
+
+### As systemd
+For systems with systemd, you can create a service to run the API by running the `create_systemd_service.py` script. This script will utilize the `run_api.py` script with the `--prod` flag, so make sure to edit the `run_api.py` default settings to your liking, or edit the `create_systemd_service.py` accordingly.
