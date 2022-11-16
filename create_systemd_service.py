@@ -2,18 +2,18 @@ import os
 import venv
 
 
-RUN_PATH = os.path.dirname(os.path.realpath(__file__))
+RUN_PATH = os.path.dirname(__file__)
 API_NAME = RUN_PATH.split('/')[-1]
 PY_ENV_PATH = f'{RUN_PATH}/env'
 SERVICE_PATH = "/etc/systemd/system"
 SERVICE_FILE = f"""[Unit]
-Description = {API_NAME.capitalize()} service
+Description = {API_NAME} service
 After = network.target
 
 [Service]
 Type = simple
 Restart = always
-SyslogIdentifier = {API_NAME.capitalize()}
+SyslogIdentifier = {API_NAME}
 ExecStart = {PY_ENV_PATH}/bin/python {RUN_PATH}/run_api.py --prod
 
 [Install]
@@ -26,7 +26,7 @@ def build_python_env():
 
 
 def create_service_file():
-    with open(f"{SERVICE_PATH}/{API_NAME}.service", "w") as file:
+    with open(f"{SERVICE_PATH}/{API_NAME.lower()}.service", "w") as file:
             file.write(SERVICE_FILE)
 
 
