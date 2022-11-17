@@ -4,10 +4,11 @@ import venv
 
 RUN_PATH = os.path.dirname(__file__)
 API_NAME = RUN_PATH.split('/')[-1]
+API_SERVICE_NAME = f'{API_NAME.lower()}.api'
 PY_ENV_PATH = f'{RUN_PATH}/env'
-SERVICE_PATH = "/etc/systemd/system"
-SERVICE_FILE = f"""[Unit]
-Description = {API_NAME} service
+SERVICE_FILE_PATH = f'/etc/systemd/system/{API_SERVICE_NAME}.service'
+SERVICE_FILE_CONTENTS = f"""[Unit]
+Description = {API_NAME} api service
 After = network.target
 
 [Service]
@@ -22,18 +23,18 @@ WantedBy = multi-user.target"""
 
 def build_python_env():
     venv.create(PY_ENV_PATH, with_pip=True)
-    os.system(f'{PY_ENV_PATH}/bin/python -m pip install -r requirements.txt')
+    os.system(f'{PY_ENV_PATH}/bin/pip install -r {RUN_PATH}/requirements.txt')
 
 
 def create_service_file():
-    with open(f"{SERVICE_PATH}/{API_NAME.lower()}.service", "w") as file:
-            file.write(SERVICE_FILE)
+    with open(SERVICE_FILE_PATH, 'w') as service_file:
+            service_file.write(SERVICE_FILE_CONTENTS)
 
 
 def enable_service():
-    os.system(f'systemctl enable {API_NAME}')
+    os.system(f'systemctl enable {API_SERVICE_NAME}')
     os.system('systemctl daemon-reload')
-    os.system(f'systemctl start {API_NAME}')
+    os.system(f'systemctl start {API_SERVICE_NAME}')
 
 
 if __name__ == '__main__':
