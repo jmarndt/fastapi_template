@@ -1,8 +1,6 @@
 # FastAPI Template
 This repo is a template for FastAPI. It provides a clean and modular directory structure, along with a basic `ping` endpoint to confirm functionality. Included is a `run_api.py` script to make it simple to run the API locally for development or in prodcution.
 
----
-
 ## Setup
 Before running the API a few dependencies need to be installed (FastAPI and Uvicorn). It is recommended to do this in a virtual environment, but doing so is optional.
 
@@ -15,6 +13,9 @@ Update pip and install requirements:
 ```
 python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt
 ```
+
+### API Name
+There is a variable `API_NAME` that is derived from the project directory name (see `dependencies.py`). For example, if you simply clone this repo and run it, the name will be `fastapi_template`. This is important to note since by default the API base route will be this variable. The directory name is also used in the `create_systemd_service.py` when creating a service.
 
 ## Running
 Simply run the `run_api.py` script to start the API in dev mode:
