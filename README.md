@@ -15,7 +15,7 @@ python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.t
 ```
 
 ### API Name
-There is a variable `API_NAME` that is derived from the project directory name (see `dependencies.py`). For example, if you simply clone this repo and run it, the name will be `fastapi_template`. This is important to note since by default the API base route will be this variable. The directory name is also used in the `create_systemd_service.py` when creating a service.
+There is a variable `API_NAME`. This is important to note since by default the API base route will be based on this variable and is also used in the `create_systemd_service.py` when creating a service.
 
 ## Running
 Simply run the `run_api.py` script to start the API in dev mode:
@@ -29,4 +29,4 @@ python3 run_api.py -h
 ```
 
 ### As systemd
-For systems with systemd, you can create a service to run the API by running the `create_systemd_service.py` script. This script will utilize the `run_api.py` script with the `--prod` flag, so make sure to edit the `run_api.py` default settings to your liking, or edit the `create_systemd_service.py` accordingly.
+For systems with systemd, you can create a service to run the API by running the `create_systemd_service.py` script. This script will utilize the `run_api.py` script with the `--prod` flag, so make sure to edit the `run_api.py` settings to your liking, or edit the `create_systemd_service.py` accordingly.

@@ -3,7 +3,7 @@ from api.dependencies import API_NAME
 from api.routers import ping
 
 
-BASE_ROUTE = f'/{API_NAME.lower()}'
+BASE_ROUTE = f'/{API_NAME}'
 
 
 api = FastAPI()

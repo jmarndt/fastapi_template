@@ -1,9 +1,9 @@
 import os
 import venv
+from api.dependencies import API_NAME
 
 
 RUN_PATH = os.path.dirname(__file__)
-API_NAME = RUN_PATH.split('/')[-1]
 API_SERVICE_NAME = f'{API_NAME.lower()}.api'
 PY_ENV_PATH = f'{RUN_PATH}/env'
 SERVICE_FILE_PATH = f'/etc/systemd/system/{API_SERVICE_NAME}.service'
